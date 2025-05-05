@@ -13,6 +13,7 @@ export type ButtonVariant =
   | 'cancel'
   | 'link'
   | 'modal'
+  | 'upload'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
@@ -45,17 +46,20 @@ export default function Button({
       tabIndex={disabled ? -1 : 0}
       className={cn(
         'focused relative overflow-hidden group min-w-fit rounded-lg text-xl lg:text-2xl font-bold transition-transform duration-200',
-        'py-4 px-8 border-2 border-slate-950 shadow-xl',
+        'px-8 border-2 border-slate-950 shadow-xl',
         disabled
           ? 'bg-slate-200 text-slate-600 cursor-not-allowed'
           : 'cursor-pointer hover:scale-105',
-        variant === 'primary' && !disabled && 'bg-blue-700 text-yellow-100',
-        variant === 'secondary' && !disabled && 'bg-sky-100 text-slate-950',
-        variant === 'delete' && !disabled && 'bg-red-100 text-slate-950',
-        variant === 'save' && !disabled && 'bg-green-100 text-slate-950',
-        variant === 'cancel' && !disabled && 'bg-slate-100 text-slate-950',
-        variant === 'link' && !disabled && 'bg-fuchsia-100 text-slate-950',
-        variant === 'modal' && !disabled && 'bg-teal-100 text-slate-950',
+        variant === 'primary' &&
+          !disabled &&
+          'py-4 bg-blue-700 text-yellow-100',
+        variant === 'secondary' && !disabled && 'py-4 bg-sky-100 text-slate-950',
+        variant === 'delete' && !disabled && 'py-4 bg-red-100 text-slate-950',
+        variant === 'save' && !disabled && 'py-4 bg-green-100 text-slate-950',
+        variant === 'cancel' && !disabled && 'py-4 bg-slate-100 text-slate-950',
+        variant === 'link' && !disabled && 'py-2 bg-fuchsia-100 text-slate-950',
+        variant === 'modal' && !disabled && 'py-4 bg-teal-100 text-slate-950',
+        variant === 'upload' && !disabled && 'py-1 bg-indigo-100 text-slate-950',
         className
       )}
       onClick={!disabled ? onClick : undefined}
@@ -79,7 +83,9 @@ export default function Button({
           variant === 'link' &&
             'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.fuchsia.100)_0%,theme(colors.fuchsia.200)_75%,theme(colors.fuchsia.300)_75%,theme(colors.fuchsia.400)_100%)]',
           variant === 'modal' &&
-            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.teal.100)_0%,theme(colors.teal.200)_75%,theme(colors.teal.300)_75%,theme(colors.teal.400)_100%)]'
+            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.teal.100)_0%,theme(colors.teal.200)_75%,theme(colors.teal.300)_75%,theme(colors.teal.400)_100%)]',
+          variant === 'upload' &&
+            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.indigo.100)_0%,theme(colors.indigo.200)_75%,theme(colors.indigo.300)_75%,theme(colors.indigo.400)_100%)]'
         )}
       />
       <span className='relative z-10 flex items-center gap-2'>
