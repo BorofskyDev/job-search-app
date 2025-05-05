@@ -3,7 +3,7 @@ type Props = {
   className?: string
 }
 
-export default function PopupIcon({ className, ...props }: Props) {
+export function PopupIcon({ className, ...props }: Props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
+    "@radix-ui/react-slot": "^1.2.1",
     "firebase": "^11.6.1",
     "framer-motion": "^12.9.7",
     "next": "15.3.1",

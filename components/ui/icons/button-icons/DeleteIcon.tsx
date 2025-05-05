@@ -2,7 +2,7 @@ type Props = {
   className?: string
 }
 
-export default function DeleteIcon({ className, ...props }: Props) {
+export function DeleteIcon({ className, ...props }: Props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
