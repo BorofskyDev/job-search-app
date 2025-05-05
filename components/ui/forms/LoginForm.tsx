@@ -1,7 +1,6 @@
-
 'use client'
-
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/context/auth/AuthProvider'
 import Button from '../buttons/Button'
 import Heading from '@/components/ui/typography/Heading'
@@ -10,22 +9,27 @@ import Input from '../inputs/Input'
 
 export default function LoginForm() {
   const { login } = useAuth()
+  const { user } = useAuth()
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-
+  useEffect(() => {
+    if (user) {
+      router.push('/user')
+    }
+  }, [user, router])
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-   e.preventDefault()
-   setLoading(true)
-   try {
-    await login(email, password)
-
-   } catch {
-    setError('Login failed. Please check your credentials')
-   } finally {
-    setLoading(false)
-   }
+    e.preventDefault()
+    setLoading(true)
+    try {
+      await login(email, password)
+    } catch {
+      setError('Login failed. Please check your credentials')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -52,7 +56,7 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         required={true}
       />
-{error && <p className='text-red-800 mt-4'>{error}</p>}
+      {error && <p className='text-red-800 mt-4'>{error}</p>}
       <div className='mt-10 w-full flex justify-center'>
         <Button type='submit' variant='primary' disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
