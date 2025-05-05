@@ -1,12 +1,11 @@
-import  Button  from "@/components/ui/buttons/Button";
+
+import LoginForm from "@/components/ui/forms/LoginForm";
 
 
 export default function Home() {
   return (
-    <div className='w-full h-full'>
-      <Button variant='primary'>Primary</Button>
-      <Button variant='secondary'>Secondary</Button>
-      <Button variant='delete' icon='delete'>Delete</Button>
+    <div className='w-full h-full grid items-center content-center'>
+<LoginForm />
     </div>
   )
 }

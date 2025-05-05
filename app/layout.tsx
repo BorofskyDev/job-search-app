@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Karla, Nunito } from 'next/font/google'
+import { Providers } from './providers'
 import './globals.css'
 
 const karla = Karla({
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${karla.variable} ${nunito.variable} antialiased w-dvw px-28 py-10 bg-blue-100`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
