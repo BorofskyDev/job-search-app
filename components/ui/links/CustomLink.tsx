@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { ExternalLinkIcon } from '@/components/icons'
+import { ExternalLinkIcon } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { HTMLAttributes } from 'react'
 
