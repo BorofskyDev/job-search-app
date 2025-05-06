@@ -79,7 +79,7 @@ export default function Input(props: InputProps): ReactElement {
         <textarea
           id={id}
           name={id}
-          value={value}
+          value={value ?? ''}
           onChange={onChange}
           required={required}
           aria-required={required}
@@ -93,7 +93,7 @@ export default function Input(props: InputProps): ReactElement {
           type={(rest as InputHTMLAttributes<HTMLInputElement>).type ?? 'text'}
           id={id}
           name={id}
-          value={value}
+          value={value ?? ''}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
           required={required}
           aria-required={required}

@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '@/context/auth/AuthProvider'
+import type { ContactDraft } from './useJobForm'
 
 interface JobPayload {
   companyName: string
@@ -16,6 +17,7 @@ interface JobPayload {
   notes?: string
   resumeFile?: File | null
   coverFile?: File | null
+  contacts: ContactDraft[]
 }
 
 export function useCreateJob() {
@@ -54,6 +56,7 @@ export function useCreateJob() {
         notes: payload.notes || null,
         resumeURL,
         coverURL,
+        contacts: payload.contacts,
         createdAt: serverTimestamp(),
       })
     } finally {

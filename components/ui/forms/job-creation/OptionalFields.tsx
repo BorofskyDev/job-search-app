@@ -3,8 +3,8 @@
 
 import Input from '@/components/ui/inputs/Input'
 import FileUploadButton from '@/components/ui/buttons/FileUploadButton'
-import { JobForm } from '@/lib/hooks/job-creation/useJobsForm'
-
+import { JobForm } from '@/lib/hooks/job-creation/useJobForm'
+import type { ContactDraft } from '@/lib/hooks/job-creation/useJobForm'
 import ContactCreationModal from '@/components/layout/modals/ContactCreationModal'
 
 type UpdateFn = <K extends keyof JobForm>(key: K, value: JobForm[K]) => void
@@ -12,12 +12,20 @@ type UpdateFn = <K extends keyof JobForm>(key: K, value: JobForm[K]) => void
 interface Props {
   form: Pick<
     JobForm,
-    'jobTitle' | 'salary' | 'location' | 'jobLink' | 'resumeFile' | 'coverFile' | 'companyName'
+    | 'jobTitle'
+    | 'salary'
+    | 'location'
+    | 'jobLink'
+    | 'resumeFile'
+    | 'coverFile'
+    | 'companyName'
+    | 'contacts'
   >
   update: UpdateFn
+  addContact: (c: ContactDraft) => void
 }
 
-export default function OptionalFields({ form, update }: Props) {
+export default function OptionalFields({ form, update, addContact }: Props) {
   return (
     <details className='space-y-6 rounded-2xl bg-sky-50 p-4 shadow-inner'>
       <summary className='cursor-pointer font-semibold text-slate-900'>
@@ -73,7 +81,19 @@ export default function OptionalFields({ form, update }: Props) {
       </div>
 
       {/* Contacts placeholder */}
-      <ContactCreationModal companyName={form.companyName} />
+      <ContactCreationModal onAdd={addContact} companyName={form.companyName} />
+      {form.contacts?.length > 0 && (
+        <div className='flex flex-wrap gap-2'>
+          {form.contacts.map((c) => (
+            <span
+              key={c.id}
+              className='rounded-full bg-slate-200 px-3 py-1 text-sm'
+            >
+              {c.name}
+            </span>
+          ))}
+        </div>
+      )}
     </details>
   )
 }

@@ -1,7 +1,7 @@
 // components/ui/forms/job-creation/RequiredFields.tsx
 'use client'
 
-import { JobForm } from '@/lib/hooks/job-creation/useJobsForm'
+import { JobForm } from '@/lib/hooks/job-creation/useJobForm'
 import { statusOptions, priorityOptions } from '@/lib/constants/jobs/job'
 import Input from '@/components/ui/inputs/Input'
 import DropdownInput from '@/components/ui/inputs/DropdownInput'

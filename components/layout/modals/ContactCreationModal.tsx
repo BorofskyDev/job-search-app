@@ -3,20 +3,21 @@ import { useState } from 'react'
 import Modal from './Modal'
 import Button from '@/components/ui/buttons/Button'
 import ContactCreationForm from '@/components/ui/forms/ContactCreationForm'
-import { useContacts } from '@/lib/hooks/contacts/useContacts'
 import { toast } from 'react-toastify'
+import type { ContactDraft } from '@/lib/hooks/job-creation/useJobForm'
 
 export default function ContactCreationModal({
   companyName,
+  onAdd,
 }: {
   companyName: string
+  onAdd: (c: ContactDraft) => void
 }) {
   const [open, setOpen] = useState(false)
-  const { createContact } = useContacts()
 
-  const handleSave = async (payload: Parameters<typeof createContact>[0]) => {
+  const handleSave = async (data: Omit<ContactDraft, 'id'>): Promise<void> => {
     try {
-      await createContact(payload)
+      onAdd({ ...data, id: Date.now().toString() })
       toast.success('Contact saved')
       setOpen(false)
     } catch (err) {

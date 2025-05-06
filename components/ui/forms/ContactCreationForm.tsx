@@ -32,15 +32,15 @@ export default function ContactCreationForm({
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setData({ ...data, [field]: e.target.value })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
+    if (!data.name.trim()) return
     setSaving(true)
     await onSave(data)
     setSaving(false)
   }
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-4'>
+    <div className='space-y-4'>
       <Input
         id='name'
         label='Name *'
@@ -97,10 +97,11 @@ export default function ContactCreationForm({
           type='submit'
           icon='save'
           disabled={saving || !data.name.trim()}
+          onClick={handleSubmit}
         >
           {saving ? 'Saving…' : 'Save'}
         </Button>
       </div>
-    </form>
+    </div>
   )
 }
