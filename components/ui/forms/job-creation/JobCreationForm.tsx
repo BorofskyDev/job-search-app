@@ -29,7 +29,7 @@ export default function JobCreationForm() {
   return (
     <form className='w-full space-y-8' onSubmit={handleSubmit}>
       <div className='space-y-4'>
-        <Heading style='subsection-title' title='Create a New Job Entry' />
+        <Heading element='h3' style='subsection-title' title='Create a New Job Entry' />
         <BodyText style='muted'>
           Fill out the details below. Required fields are marked with *
         </BodyText>

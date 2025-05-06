@@ -3,15 +3,16 @@
 
 import Input from '@/components/ui/inputs/Input'
 import FileUploadButton from '@/components/ui/buttons/FileUploadButton'
-import Button from '@/components/ui/buttons/Button'
 import { JobForm } from '@/lib/hooks/job-creation/useJobsForm'
+
+import ContactCreationModal from '@/components/layout/modals/ContactCreationModal'
 
 type UpdateFn = <K extends keyof JobForm>(key: K, value: JobForm[K]) => void
 
 interface Props {
   form: Pick<
     JobForm,
-    'jobTitle' | 'salary' | 'location' | 'jobLink' | 'resumeFile' | 'coverFile'
+    'jobTitle' | 'salary' | 'location' | 'jobLink' | 'resumeFile' | 'coverFile' | 'companyName'
   >
   update: UpdateFn
 }
@@ -72,12 +73,7 @@ export default function OptionalFields({ form, update }: Props) {
       </div>
 
       {/* Contacts placeholder */}
-      <div className='space-y-2'>
-        <Button variant='modal' type='button' icon='add'>
-          Add Contact
-        </Button>
-        <p className='text-sm italic text-slate-500'>No contacts added yet.</p>
-      </div>
+      <ContactCreationModal companyName={form.companyName} />
     </details>
   )
 }
