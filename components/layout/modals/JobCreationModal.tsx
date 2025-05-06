@@ -2,7 +2,7 @@
 'use client'
 
 import Modal from './Modal'
-import JobCreationForm from '@/components/ui/forms/JobCreationForm'
+import JobCreationForm from '@/components/ui/forms/job-creation/JobCreationForm'
 import { useState } from 'react'
 import Button from '@/components/ui/buttons/Button'
 
