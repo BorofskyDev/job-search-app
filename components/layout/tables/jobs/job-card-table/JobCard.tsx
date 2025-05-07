@@ -16,9 +16,10 @@ import {
 
 interface Props {
   job: Job
+  onClick: () => void
 }
 
-export default function JobCard({ job }: Props) {
+export default function JobCard({ job, onClick }: Props) {
   const validStatuses = new Set<BodyStyle>([
     'default',
     'denied',
@@ -34,23 +35,32 @@ export default function JobCard({ job }: Props) {
     ? (rawStatus as BodyStyle)
     : 'default'
 
+  const fontWeight =
+    job.priority === 'high'
+      ? 'font-black'
+      : job.priority === 'low'
+      ? 'font-thin'
+      : ''
+
   const backgroundClasses = bgMap[status]
 
   const IconComponent = statusIcons[status as StatusIconVariant]
 
   return (
-    <div
+    <button
+    onClick={onClick}
       className={cn(
-        'px-8 py-4 border-2 border-slate-950 rounded-4xl shadow-md hover:shadow-2xl transition-all duration-200 ease-in-out cursor-pointer hover:scale-105',
-        backgroundClasses
+        'focused min-w-fit px-8 py-4 border-2 border-slate-950 rounded-4xl shadow-md hover:shadow-2xl transition-all duration-200 ease-in-out cursor-pointer hover:scale-105',
+        backgroundClasses,
+        fontWeight
       )}
     >
       <Heading element='h3' title={job.companyName} style='subsection-title' />
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col items-start gap-2'>
           <CardText status='default'>
             {status === 'prospect'
-              ? `Prospect added: ${new Date(job.appDate).toLocaleDateString()}`
+              ? `Prospect Added: ${new Date(job.appDate).toLocaleDateString()}`
               : `Applied: ${new Date(job.appDate).toLocaleDateString()}`}
           </CardText>
           <CardText status={status}>
@@ -69,12 +79,12 @@ export default function JobCard({ job }: Props) {
         {IconComponent && (
           <IconComponent
             className={cn(
-              'w-10 h-10 fill-current',
+              'w-14 h-14 fill-current',
               jobStatusTextColorMap[status]
             )}
           />
         )}
       </div>
-    </div>
+    </button>
   )
 }

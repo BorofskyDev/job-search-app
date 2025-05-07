@@ -8,7 +8,7 @@ export function GhostedIcon({ className, ...props }: Props) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      viewBox='0 0 50 50'
+      viewBox='0 0 52 50'
       fill='none'
       stroke='currentColor'
       strokeWidth={2}

@@ -7,26 +7,26 @@ import Button from '@/components/ui/buttons/Button'
 import { useAuth } from '@/context/auth/AuthProvider'
 import JobCreationModal from '@/components/layout/modals/JobCreationModal'
 import JobTableCard from '@/components/layout/tables/jobs/job-card-table/JobTableCard'
+import JobTable from '../../tables/jobs/job-table/JobTable'
 
 export default function UserDashboardComponent() {
   const { user, logout } = useAuth()
 
   return (
     <section className='w-full max-w-6xl mx-auto px-4 py-10'>
-      <Heading style='page-title' title={`Welcome, ${user?.email ?? 'User'}`} />
-      <BodyText style='lead'>This is your job tracking dashboard.</BodyText>
+      <Heading element='h1' style='page-title' title='Job Search Dashboard' />
+      <BodyText style='lead'>{`Welcome, ${user?.email ?? 'User'}`}</BodyText>
 
       {/* Top-level actions */}
-      <div className='mt-8 flex flex-wrap gap-4'>
-    
+      <div className='my-8 flex flex-wrap gap-4'>
         <Button variant='secondary' onClick={logout}>
           Logout
         </Button>
       </div>
 
       <JobCreationModal />
-   <JobTableCard />
-
+      <JobTableCard />
+      <JobTable />
     </section>
   )
 }
