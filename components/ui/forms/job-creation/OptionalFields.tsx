@@ -3,8 +3,8 @@
 
 import Input from '@/components/ui/inputs/Input'
 import FileUploadButton from '@/components/ui/buttons/FileUploadButton'
-import { JobForm } from '@/lib/hooks/job-creation/useJobForm'
-import type { ContactDraft } from '@/lib/hooks/job-creation/useJobForm'
+import { JobForm } from '@/lib/hooks/jobs/useJobForm'
+import type { ContactDraft } from '@/lib/hooks/jobs/useJobForm'
 import ContactCreationModal from '@/components/layout/modals/ContactCreationModal'
 
 type UpdateFn = <K extends keyof JobForm>(key: K, value: JobForm[K]) => void

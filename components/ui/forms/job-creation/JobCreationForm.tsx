@@ -2,8 +2,8 @@
 'use client'
 
 import { toast } from 'react-toastify'
-import { useJobForm } from '@/lib/hooks/job-creation/useJobForm'
-import { useCreateJob } from '@/lib/hooks/job-creation/useCreateJob'
+import { useJobForm } from '@/lib/hooks/jobs/useJobForm'
+import { useCreateJob } from '@/lib/hooks/jobs/useCreateJob'
 import Heading from '@/components/ui/typography/Heading'
 import BodyText from '@/components/ui/typography/BodyText'
 import Button from '@/components/ui/buttons/Button'

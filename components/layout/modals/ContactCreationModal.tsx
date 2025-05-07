@@ -4,7 +4,7 @@ import Modal from './Modal'
 import Button from '@/components/ui/buttons/Button'
 import ContactCreationForm from '@/components/ui/forms/ContactCreationForm'
 import { toast } from 'react-toastify'
-import type { ContactDraft } from '@/lib/hooks/job-creation/useJobForm'
+import type { ContactDraft } from '@/lib/hooks/jobs/useJobForm'
 
 export default function ContactCreationModal({
   companyName,
