@@ -12,6 +12,8 @@ export interface Job {
   companyName: string
   appDate: string
   status: string
+  priority: string
+  followUp: boolean
   salary?: string
   location?: string
   jobLink?: string

@@ -11,6 +11,8 @@ interface JobPayload {
   companyName: string
   appDate: string // ISO string
   status: string
+  priority: string
+  followUp: boolean
   salary?: string
   location?: string
   jobLink?: string
@@ -50,6 +52,8 @@ export function useCreateJob() {
         companyName: payload.companyName,
         appDate: payload.appDate,
         status: payload.status,
+        priority: payload.priority,
+        followUp: payload.followUp,
         salary: payload.salary || null,
         location: payload.location || null,
         jobLink: payload.jobLink || null,

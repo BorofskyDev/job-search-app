@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${karla.variable} ${nunito.variable} antialiased w-dvw px-28 py-10 bg-blue-100`}
+        className={`${karla.variable} ${nunito.variable} antialiased w-dvw px-8 py-10 bg-blue-100`}
       >
         <Providers>{children}</Providers>
       </body>
