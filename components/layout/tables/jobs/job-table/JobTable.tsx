@@ -5,34 +5,39 @@ import { useFetchJobs, Job } from '@/lib/hooks/jobs/useFetchJobs'
 import JobRow from './JobRow'
 import JobInfoModal from '@/components/layout/modals/JobInfoModal'
 
+
+
 export default function JobTable() {
   const { jobs } = useFetchJobs()
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
 
   return (
     <>
-      <div className='overflow-x-auto my-10 rounded-xl border border-slate-300'>
-        <table className='min-w-full text-left text-sm table-auto'>
-          <thead className='bg-slate-200 text-slate-900 font-semibold'>
-            <tr>
-              <th className='py-2 px-4'>Company</th>
-              <th className='py-2 px-4'>Date</th>
-              <th className='py-2 px-4'>Status</th>
-              <th className='py-2 px-4'>Priority</th>
-              <th className='py-2 px-4'>Follow Up</th>
-              <th className='py-2 px-4 text-center'>Icon</th>
-            </tr>
-          </thead>
-          <tbody className='divide-y divide-slate-300'>
-            {jobs.map((job) => (
-              <JobRow
-                key={job.id}
-                job={job}
-                onClick={() => setSelectedJob(job)}
-              />
-            ))}
-          </tbody>
-        </table>
+      
+      <div
+        role='table'
+        aria-label='Job application table'
+        className='hidden lg:block overflow-auto max-w-full max-h-[70vh] my-10 rounded-xl '
+      >
+        {/* header */}
+        <div
+          role='row'
+          className='grid grid-cols-6 sticky top-0 bg-blue-800 text-slate-50 font-semibold px-4 py-2 rounded-t-xl'
+        >
+          <span role='columnheader' className='text-center'>
+            Icon
+          </span>
+          <span role='columnheader'>Company</span>
+          <span role='columnheader'>Date</span>
+          <span role='columnheader'>Status</span>
+          <span role='columnheader'>Priority</span>
+          <span role='columnheader'>Follow&nbsp;Up</span>
+        </div>
+
+        {/* rows */}
+        {jobs.map((job) => (
+          <JobRow key={job.id} job={job} onClick={() => setSelectedJob(job)} />
+        ))}
       </div>
 
       {selectedJob && (

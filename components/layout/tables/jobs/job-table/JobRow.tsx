@@ -1,4 +1,3 @@
-
 'use client'
 
 import { Job } from '@/lib/hooks/jobs/useFetchJobs'
@@ -6,13 +5,20 @@ import {
   statusIcons,
   StatusIconVariant,
 } from '@/components/ui/icons/job-status-icons'
-import { jobStatusTextColorMap, BodyStyle } from '@/lib/styles/jobStatusStyles'
+import {
+  jobStatusTextColorMap,
+  BodyStyle,
+  bgMap,
+} from '@/lib/styles/jobStatusStyles'
 import { cn } from '@/lib/utils'
 
 interface Props {
   job: Job
   onClick: () => void
 }
+
+/** map each status to the bg/hover classes you want */
+const rowBgClass = bgMap
 
 export default function JobRow({ job, onClick }: Props) {
   const validStatuses = new Set<BodyStyle>([
@@ -39,31 +45,42 @@ export default function JobRow({ job, onClick }: Props) {
       ? 'font-thin'
       : ''
 
+  const cellClass = 'max-w-[15ch] truncate'
+
   return (
-    <tr
+    <button
+      role='row'
       onClick={onClick}
       className={cn(
-        'cursor-pointer hover:bg-slate-100 transition-colors duration-150',
+        'focused  grid grid-cols-6 items-center gap-2 w-full text-left py-5 px-4 my-3 border-1 border-slate-950 rounded-xl shadow hover:shadow-2xl hover:scale-y-105 cursor-pointer transition-all duration-200',
+        rowBgClass[status],
         fontWeight
       )}
     >
-      <td className='py-2 px-4'>{job.companyName}</td>
-      <td className='py-2 px-4'>
-        {new Date(job.appDate).toLocaleDateString()}
-      </td>
-      <td className='py-2 px-4 capitalize'>{job.status}</td>
-      <td className='py-2 px-4 capitalize'>{job.priority || 'Medium'}</td>
-      <td className='py-2 px-4'>{job.followUp ? 'Yes' : 'No'}</td>
-      <td className='py-2 px-4 text-center'>
+      <span role='cell' className='flex justify-center'>
         {IconComponent && (
           <IconComponent
             className={cn(
-              'w-5 h-5 inline fill-current',
+              'w-8 h-8 fill-current',
               jobStatusTextColorMap[status]
             )}
           />
         )}
-      </td>
-    </tr>
+      </span>
+
+      <span role='cell' className={cellClass}>
+        {job.companyName}
+      </span>
+      <span role='cell' className={cellClass}>
+        {new Date(job.appDate).toLocaleDateString()}
+      </span>
+      <span role='cell' className={`capitalize ${cellClass}`}>
+        {job.status}
+      </span>
+      <span role='cell' className={cn('capitalize', cellClass)}>
+        {job.priority || 'Medium'}
+      </span>
+      <span role='cell'>{job.followUp ? 'Yes' : 'No'}</span>
+    </button>
   )
 }
