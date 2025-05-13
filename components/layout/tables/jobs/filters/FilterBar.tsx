@@ -17,7 +17,7 @@ export default function FilterBar() {
 
   return (
     /* desktop-only for now */
-    <div className='my-10 border-2 p-8 bg-slate-100 flex flex-col w-full items-center gap-4 mb-6'>
+    <div className='my-10 border-2 p-8 bg-slate-100 flex flex-col w-full items-center rounded-2xl shadow-xl gap-4 mb-6'>
       <Heading
         style='subsection-title'
         element='h3'
@@ -49,7 +49,7 @@ export default function FilterBar() {
               <FilterPriority />
             </div>
           </div>
-          <div className='py-6 px-16 border-2 border-slate-950 rounded-3xl my-10 shadow-xl flex items-center place-self-start bg-slate-300'>
+          <div className=' py-4 px-8 border-2 border-slate-950 rounded-3xl my-10 shadow-xl flex flex-col md:flex-row items-center md:place-self-start bg-slate-300'>
             <BodyText style='light' className='text-center mr-4'>
               Order by
             </BodyText>

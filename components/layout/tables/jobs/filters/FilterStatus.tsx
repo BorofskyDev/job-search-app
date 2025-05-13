@@ -24,7 +24,7 @@ export default function FilterStatus() {
   const { status, toggleStatus } = useJobFilters()
 
   // active if the inclusion set is empty OR contains the status
-  const isActive = (s: BodyStyle) => status.size === 0 || status.has(s)
+  const isActive = (s: BodyStyle) => !status.has(s)
 
   return (
     <div className='flex flex-wrap gap-2'>

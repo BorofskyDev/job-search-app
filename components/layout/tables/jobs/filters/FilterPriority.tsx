@@ -8,25 +8,25 @@ import {
   PriorityIconVariant,
 } from '@/components/ui/icons/job-priority-icons'
 
-const prioList = ['High', 'Medium', 'Low'] as const
+const prioList = ['high', 'medium', 'low'] as const
 type Prio = (typeof prioList)[number]
 
 const prioBg: Record<Prio, string> = {
-  High: 'bg-rose-200',
-  Medium: 'bg-amber-200',
-  Low: 'bg-teal-200',
+  high: 'bg-rose-200',
+  medium: 'bg-amber-200',
+  low: 'bg-teal-200',
 }
 
 export default function FilterPriority() {
   const { priority, togglePriority } = useJobFilters()
 
-  const isActive = (p: Prio) => priority.size === 0 || priority.has(p)
+  const isActive = (p: Prio) => !priority.has(p)
 
   return (
-    <div className='flex flex-wrap gap-2'>
+    <div className='flex flex-wrap gap-2 '>
       {prioList.map((p) => {
         /* look up the matching icon: 'High' -> 'high', etc. */
-        const Icon = PriorityIcons[p.toLowerCase() as PriorityIconVariant]
+        const Icon = PriorityIcons[p as PriorityIconVariant]
 
         return (
           <FilterButton
@@ -37,7 +37,7 @@ export default function FilterPriority() {
             bgInactive='bg-slate-200'
           >
             {Icon && <Icon className='h-6 w-6' aria-hidden />}
-            <span>{p}</span>
+            <span className='capitalize'>{p}</span>
           </FilterButton>
         )
       })}

@@ -1,6 +1,6 @@
 'use client'
 
-import { Job } from '@/lib/hooks/jobs/useFetchJobs'
+import { useFetchJobs} from '@/lib/hooks/jobs/useFetchJobs'
 import Modal from './Modal'
 import {
   statusIcons,
@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils'
 import CardText from '@/components/ui/typography/CardText'
 
 interface Props {
-  job: Job
+  jobKey: string
   isOpen: boolean
   onClose: () => void
 }
@@ -26,7 +26,16 @@ const validStatuses = new Set<BodyStyle>([
   'prospect',
 ])
 
-export default function JobInfoModal({ job, isOpen, onClose }: Props) {
+export default function JobInfoModal({ jobKey, isOpen, onClose }: Props) {
+
+  const { jobs } = useFetchJobs()
+  
+  const job = jobs.find((j) => j.id.toString() === jobKey)
+
+  
+  if (!job) return null
+
+  // normalize status for styling
   const rawStatus = job.status?.toLowerCase()
   const status: BodyStyle = validStatuses.has(rawStatus as BodyStyle)
     ? (rawStatus as BodyStyle)
@@ -50,7 +59,7 @@ export default function JobInfoModal({ job, isOpen, onClose }: Props) {
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         <CardText status='default'>
-          <strong>Status:</strong> {job.status}
+          <strong>Status:</strong> {job.status || 'Applied'}
         </CardText>
 
         <CardText status='default' className='capitalize'>

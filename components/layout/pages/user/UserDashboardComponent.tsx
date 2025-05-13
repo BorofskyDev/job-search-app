@@ -17,9 +17,7 @@ export default function UserDashboardComponent() {
       <Heading element='h1' style='page-title' title='Job Search Dashboard' />
       <BodyText style='lead'>{`Welcome, ${user?.email ?? 'User'}`}</BodyText>
 
-
       <JobFilterProvider>
-    
         <DashboardJobSection view={view} setView={setView} logout={logout} />
       </JobFilterProvider>
     </section>
