@@ -2,7 +2,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { collection, query, where, getDocs, orderBy, Timestamp } from 'firebase/firestore'
+import {
+  collection,
+  query,
+  where,
+  // getDocs,
+  onSnapshot,
+  orderBy,
+  Timestamp,
+} from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/context/auth/AuthProvider'
 import type { ContactDraft } from './useJobForm'
@@ -20,7 +28,7 @@ export interface Job {
   notes?: string
   resumeURL?: string
   coverURL?: string
-  contacts: ContactDraft[] 
+  contacts: ContactDraft[]
   createdAt?: Timestamp
 }
 
@@ -32,23 +40,37 @@ export function useFetchJobs() {
   useEffect(() => {
     if (!user) return
 
-    const fetchJobs = async () => {
-      setLoading(true)
-      const q = query(
-        collection(db, 'jobs'),
-        where('userId', '==', user.uid),
-        orderBy('createdAt', 'desc')
-      )
-      const snapshot = await getDocs(q)
-      const fetched: Job[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Job[]
-      setJobs(fetched)
-      setLoading(false)
-    }
+    const q = query(
+      collection(db, 'jobs'),
+      where('userId', '==', user.uid),
+      orderBy('createdAt', 'desc')
+    )
 
-    fetchJobs()
+    const unsub = onSnapshot(q, (snap) => {
+      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as Job[]
+      setJobs(list)
+      setLoading(false)
+    })
+
+    return unsub  
+
+    // const fetchJobs = async () => {
+    //   setLoading(true)
+    //   const q = query(
+    //     collection(db, 'jobs'),
+    //     where('userId', '==', user.uid),
+    //     orderBy('createdAt', 'desc')
+    //   )
+    //   const snapshot = await getDocs(q)
+    //   const fetched: Job[] = snapshot.docs.map((doc) => ({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //   })) as Job[]
+    //   setJobs(fetched)
+    //   setLoading(false)
+    // }
+
+    // fetchJobs()
   }, [user])
 
   return { jobs, loading }

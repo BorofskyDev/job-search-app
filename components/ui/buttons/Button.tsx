@@ -14,6 +14,7 @@ export type ButtonVariant =
   | 'link'
   | 'modal'
   | 'upload'
+  | 'edit'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
@@ -60,6 +61,7 @@ export default function Button({
         variant === 'link' && !disabled && 'py-2 bg-fuchsia-100 text-slate-950',
         variant === 'modal' && !disabled && 'py-4 bg-teal-100 text-slate-950',
         variant === 'upload' && !disabled && 'py-1 bg-indigo-100 text-slate-950',
+        variant === 'edit' && !disabled && 'py-4 bg-emerald-100 text-slate-950',
         className
       )}
       onClick={!disabled ? onClick : undefined}
@@ -85,7 +87,9 @@ export default function Button({
           variant === 'modal' &&
             'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.teal.100)_0%,theme(colors.teal.200)_75%,theme(colors.teal.300)_75%,theme(colors.teal.400)_100%)]',
           variant === 'upload' &&
-            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.indigo.100)_0%,theme(colors.indigo.200)_75%,theme(colors.indigo.300)_75%,theme(colors.indigo.400)_100%)]'
+            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.indigo.100)_0%,theme(colors.indigo.200)_75%,theme(colors.indigo.300)_75%,theme(colors.indigo.400)_100%)]',
+          variant === 'edit' &&
+            'group-hover:translate-x-0 group-focus:translate-x-0 bg-[linear-gradient(115deg,theme(colors.emerald.100)_0%,theme(colors.emerald.200)_75%,theme(colors.emerald.300)_75%,theme(colors.emerald.400)_100%)]',
         )}
       />
       <span className='relative z-10 flex items-center gap-2'>

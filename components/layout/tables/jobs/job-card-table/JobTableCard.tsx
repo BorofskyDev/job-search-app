@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
 import JobCard from './JobCard'
-import JobInfoModal from '@/components/layout/modals/JobInfoModal'
+import JobInfoModal from '@/components/layout/modals/job-info-modal/JobInfoModal'
 import { useDisplayJobs } from '@/lib/hooks/jobs/useDisplayJobs'
 
 export default function JobTableCard() {

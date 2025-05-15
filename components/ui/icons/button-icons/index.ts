@@ -1,5 +1,6 @@
 import { CancelIcon } from './CancelIcon'
 import { DeleteIcon } from './DeleteIcon'
+import { EditIcon } from './EditIcon'
 import { LinkIcon } from './LinkIcon'
 import { PlusIcon } from './PlusIcon'
 import { PopupIcon } from './PopupIcon'
@@ -7,12 +8,13 @@ import { SaveIcon } from './SaveIcon'
 import { UploadIcon } from './UploadIcon'
 
 export const buttonIcons = {
-    delete: DeleteIcon,
-    save: SaveIcon,
     cancel: CancelIcon,
+    delete: DeleteIcon,
+    edit: EditIcon,
     link: LinkIcon,
-    modal: PopupIcon,
     add: PlusIcon,
+    modal: PopupIcon,
+    save: SaveIcon,
     upload: UploadIcon,
 } as const
 

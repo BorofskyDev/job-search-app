@@ -20,7 +20,7 @@ export default function CustomLink({
   ...props
 }: Props) {
   const baseClasses = cn(
-    'group max-w-fit relative inline-flex items-center gap-2 cursor-pointer font-bold text-xl text-indigo-800 transition-colors duration-200 hover:text-indigo-950 pb-2 pt-1',
+    'group max-w-fit relative inline-flex items-center gap-2 cursor-pointer font-bold text-indigo-800 transition-colors duration-200 hover:text-indigo-950 pb-2 pt-1',
     className
   )
   const [isHovered, setIsHovered] = useState(false)

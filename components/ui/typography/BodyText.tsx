@@ -34,7 +34,7 @@ const styleMap: Record<BodyStyle, string> = {
   muted: 'my-4 font-body text-sm text-slate-500',
   error: 'my-6 font-body text-base text-red-700',
   caption: 'mt-1 font-body text-xs uppercase tracking-wide text-slate-500',
-  lead: 'mb-6 font-body text-xl md:text-2xl font-medium text-slate-900',
+  lead: 'font-body font-medium text-slate-900',
   quote:
     'my-6 font-body italic text-lg text-slate-800 border-l-4 border-slate-300 pl-4',
   small: 'text-xs text-slate-700 font-body',
@@ -48,7 +48,7 @@ export default function BodyText({
   ...props
 }: Props) {
   return (
-    <Tag className={cn(styleMap[style], className)} {...props}>
+    <Tag className={(cn(styleMap[style], className))} {...props}>
       {children}
     </Tag>
   )
