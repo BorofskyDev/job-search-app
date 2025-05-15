@@ -1,7 +1,6 @@
 'use client'
 
 import { Job } from '@/lib/hooks/jobs/useFetchJobs'
-import { motion } from 'framer-motion'
 import {
   statusIcons,
   StatusIconVariant,
@@ -12,33 +11,27 @@ import {
   bgMap,
 } from '@/lib/styles/jobStatusStyles'
 import { cn } from '@/lib/utils'
+import { FadeScale } from '@/components/ui/animations/FadeScale'
 
 interface Props {
   job: Job
   onClick: () => void
 }
 
-/** map each status to the bg/hover classes you want */
 const rowBgClass = bgMap
-
-const rowVariants = {
-  hidden: { opacity: 0, scale: 0 },
-  visible: { opacity: 1, scale: 1 },
+const validStatuses: Record<BodyStyle, true> = {
+  default: true,
+  denied: true,
+  interview: true,
+  ghosted: true,
+  offer: true,
+  hired: true,
+  prospect: true,
 }
 
 export default function JobRow({ job, onClick }: Props) {
-  const validStatuses = new Set<BodyStyle>([
-    'default',
-    'denied',
-    'interview',
-    'ghosted',
-    'offer',
-    'hired',
-    'prospect',
-  ])
-
   const rawStatus = job.status?.toLowerCase()
-  const status: BodyStyle = validStatuses.has(rawStatus as BodyStyle)
+  const status: BodyStyle = validStatuses[rawStatus as BodyStyle]
     ? (rawStatus as BodyStyle)
     : 'default'
 
@@ -51,23 +44,14 @@ export default function JobRow({ job, onClick }: Props) {
       ? 'font-thin'
       : ''
 
-  const cellClass = 'max-w-[15ch] truncate'
+  const cell = 'max-w-[15ch] truncate'
 
   return (
-    <motion.button
+    <FadeScale
+      as='button'
       role='row'
       onClick={onClick}
-      layout
-      variants={rowVariants}
-      whileHover={{ scaleY: 1.1 }}
-      transition={{
-        opacity: { duration: 0.2, ease: 'easeInOut' },
-        scale: { duration: 0.2, ease: 'easeInOut' },
-        layout: { duration: 0.2, ease: 'easeInOut' },
-      }}
-      initial='hidden'
-      animate='visible'
-      exit='hidden'
+      whileHover={{ scaleY: 1.05 }}
       className={cn(
         'focused grid grid-cols-6 items-center gap-2 w-full text-left py-5 px-4 my-3 border border-slate-950 rounded-xl shadow hover:shadow-2xl cursor-pointer',
         rowBgClass[status],
@@ -85,19 +69,19 @@ export default function JobRow({ job, onClick }: Props) {
         )}
       </span>
 
-      <span role='cell' className={cellClass}>
+      <span role='cell' className={cell}>
         {job.companyName}
       </span>
-      <span role='cell' className={cellClass}>
+      <span role='cell' className={cell}>
         {new Date(job.appDate).toLocaleDateString()}
       </span>
-      <span role='cell' className={`capitalize ${cellClass}`}>
+      <span role='cell' className={`capitalize ${cell}`}>
         {job.status}
       </span>
-      <span role='cell' className={cn('capitalize', cellClass)}>
+      <span role='cell' className={cn('capitalize', cell)}>
         {job.priority || 'Medium'}
       </span>
       <span role='cell'>{job.followUp ? 'Yes' : 'No'}</span>
-    </motion.button>
+    </FadeScale>
   )
 }

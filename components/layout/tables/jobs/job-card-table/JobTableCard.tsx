@@ -1,28 +1,47 @@
 'use client'
 
-import { useFetchJobs, Job } from '@/lib/hooks/jobs/useFetchJobs'
+import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { useFilteredJobs } from '@/lib/hooks/jobs/useFilteredJobs'
+
 import JobCard from './JobCard'
 import JobInfoModal from '@/components/layout/modals/JobInfoModal'
-import { useState } from 'react'
 
 export default function JobTableCard() {
-  const { jobs } = useFetchJobs()
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null)
+  /* already filtered by the shared hook */
+  const jobs = useFilteredJobs()
+
+  const [selectedJobKey, setSelectedJobKey] = useState<string | null>(null)
+
+  if (jobs.length === 0) {
+    return (
+      <div className='p-6 my-10 text-center text-lg'>
+        All filters deselected
+      </div>
+    )
+  }
 
   return (
     <>
- 
-      <div className='my-10 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-        {jobs.map((job) => (
-          <JobCard key={job.id} job={job} onClick={() => setSelectedJob(job)} />
-        ))}
+      <div className='my-10'>
+        <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+          <AnimatePresence initial={false}>
+            {jobs.map((job) => (
+              <JobCard
+                key={job.id}
+                job={job}
+                onClick={() => setSelectedJobKey(job.id.toString())}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
 
-      {selectedJob && (
+      {selectedJobKey && (
         <JobInfoModal
-          job={selectedJob}
-          isOpen={!!selectedJob}
-          onClose={() => setSelectedJob(null)}
+          jobKey={selectedJobKey}
+          isOpen
+          onClose={() => setSelectedJobKey(null)}
         />
       )}
     </>
