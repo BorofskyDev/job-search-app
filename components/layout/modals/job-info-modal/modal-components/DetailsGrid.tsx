@@ -20,6 +20,7 @@ export default function DetailsGrid({ job, className }: DetailsGridProps) {
         <InfoItem label='Status'>{job.status || 'Applied'}</InfoItem>
         <InfoItem label='Priority'>{job.priority || 'Medium'}</InfoItem>
         <InfoItem label='Follow Up'>{job.followUp ? 'Yes' : 'No'}</InfoItem>
+        <InfoItem label='Job Title'>{job.jobTitle ? job.jobTitle : ''}</InfoItem>
         <InfoItem label='Date'>
           {new Date(job.appDate).toLocaleDateString()}
         </InfoItem>

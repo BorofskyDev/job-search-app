@@ -11,7 +11,11 @@ import {
   JobHeader,
   NotesBlock,
 } from './modal-components'
+import { useUpdateJob } from '@/lib/hooks/jobs/useUpdateJob'
 import { useDeleteJob } from '@/lib/hooks/jobs/useDeleteJob'
+import { JobPayload } from '@/lib/hooks/jobs/useCreateJob'
+import { useState } from 'react'
+import JobForm from '@/components/ui/forms/jobs/JobForm'
 
 interface Props {
   jobKey: string
@@ -31,7 +35,9 @@ const validStatuses = new Set<BodyStyle>([
 
 export default function JobInfoModal({ jobKey, isOpen, onClose }: Props) {
   const { jobs } = useFetchJobs()
-  const { deleteJob} = useDeleteJob()
+  const { updateJob } = useUpdateJob()
+  const { deleteJob } = useDeleteJob()
+  const [editMode, setEditMode] = useState(false)
 
   const job = jobs.find((j) => j.id.toString() === jobKey) as Job | undefined
   if (!job) return null
@@ -42,8 +48,14 @@ export default function JobInfoModal({ jobKey, isOpen, onClose }: Props) {
     ? (rawStatus as BodyStyle)
     : 'default'
 
+  const handleSave = async (values: JobPayload) => {
+    await updateJob(job.id, values)
+    setEditMode(false)
+  }
 
-  const handleDelete = async () => { 
+  const handleCancel = () => setEditMode(false)
+
+  const handleDelete = async () => {
     const ok = window.confirm(
       `Delete “${job.companyName}” application? This can’t be undone.`
     )
@@ -59,20 +71,29 @@ export default function JobInfoModal({ jobKey, isOpen, onClose }: Props) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="flex lg:grid lg:grid-cols-2 lg:auto-rows-auto items-center flex-col gap-6 lg:gap-y-10">
-
-      <JobHeader companyName={job.companyName} status={status} className='col-1' />
-      <DetailsGrid job={job} className='col-1' />
-      <NotesBlock notes={job.notes ?? ''} className='col-2 row-1' />
-      <ContactsList contacts={job.contacts ?? ''} className='col-2' />
-      <Actions
-      className='col-2'
-        onEdit={() => {
-          /* TODO */
-        }}
-        onDelete={handleDelete}
-      />
-      </div>
+      {editMode ? (
+        <JobForm
+          initialValues={job}
+          onSave={handleSave}
+          onCancel={handleCancel}
+        />
+      ) : (
+        <div className='flex lg:grid lg:grid-cols-2 lg:auto-rows-auto items-center flex-col gap-6 lg:gap-y-10'>
+          <JobHeader
+            companyName={job.companyName}
+            status={status}
+            className='col-1'
+          />
+          <DetailsGrid job={job} className='col-1' />
+          <NotesBlock notes={job.notes ?? ''} className='col-2 row-1' />
+          <ContactsList contacts={job.contacts ?? ''} className='col-2' />
+          <Actions
+            className='col-2'
+            onEdit={() => setEditMode(true)}
+            onDelete={handleDelete}
+          />
+        </div>
+      )}
     </Modal>
   )
 }

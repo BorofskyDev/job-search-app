@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '@/context/auth/AuthProvider'
 import type { ContactDraft } from './useJobForm'
 
-interface JobPayload {
+export interface JobPayload {
   companyName: string
   appDate: string // ISO string
   status: string

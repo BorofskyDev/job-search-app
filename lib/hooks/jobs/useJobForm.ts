@@ -1,14 +1,14 @@
 // hooks/useJobForm.ts
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export type ContactDraft = {
-  id: string 
-  name: string 
+  id: string
+  name: string
   position?: string
   phone?: string
   email?: string
   linkedIn?: string
-  website?: string 
+  website?: string
   notes?: string
 }
 
@@ -33,7 +33,7 @@ export function useJobForm() {
     companyName: '',
     appDate: '',
     status: 'Applied',
-    priority: 'medium',
+    priority: 'Medium',
     followUp: false,
     jobTitle: '',
     salary: '',
@@ -45,7 +45,6 @@ export function useJobForm() {
     contacts: [],
   })
 
-  
   const removeContact = (id: string): void =>
     setForm(
       (f: JobForm): JobForm => ({
@@ -53,19 +52,24 @@ export function useJobForm() {
         contacts: f.contacts.filter((c: ContactDraft) => c.id !== id),
       })
     )
-    const addContact = (c: ContactDraft) =>
-      setForm((f) => ({ ...f, contacts: [...f.contacts, c] }))
-    
-    const update = <K extends keyof JobForm>(key: K, value: JobForm[K]) =>
-      setForm((prev) => ({ ...prev, [key]: value }))
-    
-    const reset = () =>
-      setForm((prev) => ({
-        ...prev,
-        companyName: '',
+  const addContact = (c: ContactDraft) =>
+    setForm((f) => ({ ...f, contacts: [...f.contacts, c] }))
+
+  const update = <K extends keyof JobForm>(key: K, value: JobForm[K]) =>
+    setForm((prev) => ({ ...prev, [key]: value }))
+
+  const setAll = useCallback(
+    (values: Partial<JobForm>) => setForm((f) => ({ ...f, ...values })),
+    []
+  )
+
+  const reset = () =>
+    setForm((prev) => ({
+      ...prev,
+      companyName: '',
       appDate: '',
       status: 'Applied',
-      priority: 'medium',
+      priority: 'Medium',
       followUp: false,
       jobTitle: '',
       salary: '',
@@ -76,6 +80,6 @@ export function useJobForm() {
       coverFile: null,
       contacts: [],
     }))
-    
-  return { form, update, reset, removeContact, addContact }
+
+  return { form, update, setAll, reset, removeContact, addContact }
 }

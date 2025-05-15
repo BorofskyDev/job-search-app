@@ -16,6 +16,7 @@ export type Job = {
   status: string
   priority: string
   followUp: boolean
+  jobTitle?: string
   salary?: string
   location?: string
   jobLink?: string
