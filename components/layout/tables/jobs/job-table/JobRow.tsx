@@ -1,6 +1,7 @@
 'use client'
 
 import { Job } from '@/lib/hooks/jobs/useFetchJobs'
+import { motion } from 'framer-motion'
 import {
   statusIcons,
   StatusIconVariant,
@@ -19,6 +20,11 @@ interface Props {
 
 /** map each status to the bg/hover classes you want */
 const rowBgClass = bgMap
+
+const rowVariants = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: { opacity: 1, scale: 1 },
+}
 
 export default function JobRow({ job, onClick }: Props) {
   const validStatuses = new Set<BodyStyle>([
@@ -48,11 +54,22 @@ export default function JobRow({ job, onClick }: Props) {
   const cellClass = 'max-w-[15ch] truncate'
 
   return (
-    <button
+    <motion.button
       role='row'
       onClick={onClick}
+      layout
+      variants={rowVariants}
+      whileHover={{ scaleY: 1.1 }}
+      transition={{
+        opacity: { duration: 0.2, ease: 'easeInOut' },
+        scale: { duration: 0.2, ease: 'easeInOut' },
+        layout: { duration: 0.2, ease: 'easeInOut' },
+      }}
+      initial='hidden'
+      animate='visible'
+      exit='hidden'
       className={cn(
-        'focused  grid grid-cols-6 items-center gap-2 w-full text-left py-5 px-4 my-3 border-1 border-slate-950 rounded-xl shadow hover:shadow-2xl hover:scale-y-105 cursor-pointer transition-all duration-200',
+        'focused grid grid-cols-6 items-center gap-2 w-full text-left py-5 px-4 my-3 border border-slate-950 rounded-xl shadow hover:shadow-2xl cursor-pointer',
         rowBgClass[status],
         fontWeight
       )}
@@ -81,6 +98,6 @@ export default function JobRow({ job, onClick }: Props) {
         {job.priority || 'Medium'}
       </span>
       <span role='cell'>{job.followUp ? 'Yes' : 'No'}</span>
-    </button>
+    </motion.button>
   )
 }

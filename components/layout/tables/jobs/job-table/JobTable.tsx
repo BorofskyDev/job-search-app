@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { useFetchJobs } from '@/lib/hooks/jobs/useFetchJobs'
 import { useJobFilters } from '../filters'
 import JobRow from './JobRow'
 import JobInfoModal from '@/components/layout/modals/JobInfoModal'
+import { BodyStyle } from '@/lib/styles/jobStatusStyles'
 
 export default function JobTable() {
   const { jobs } = useFetchJobs()
@@ -13,12 +15,28 @@ export default function JobTable() {
   // store only the job ID in state (as a string)
   const [selectedJobKey, setSelectedJobKey] = useState<string | null>(null)
 
-  // exclusion-based filtering
-  const filteredJobs = jobs.filter(
-    (job) =>
-      !excludedStatus.has(job.status.toLowerCase()) &&
-      !excludedPriority.has((job.priority ?? '').toLowerCase())
-  )
+  const validStatuses = new Set<BodyStyle>([
+    'default',
+    'denied',
+    'interview',
+    'ghosted',
+    'offer',
+    'hired',
+    'prospect',
+  ])
+
+  const filteredJobs = jobs.filter((job) => {
+    const raw = job.status.toLowerCase()
+    const statusKey = validStatuses.has(raw as BodyStyle) ? (raw as BodyStyle) : 'default'
+
+    const priorityKey = ( job.priority ? job.priority.toLowerCase() : 'medium') as 'high' | 'medium' | 'low'
+
+    return ( 
+      !excludedStatus.has(statusKey) &&
+      !excludedPriority.has(priorityKey)
+    )
+
+  })
 
   return (
     <>
@@ -48,13 +66,15 @@ export default function JobTable() {
           </div>
 
           {/* rows: now using filteredJobs */}
-          {filteredJobs.map((job) => (
-            <JobRow
-              key={job.id}
-              job={job}
-              onClick={() => setSelectedJobKey(job.id.toString())}
-            />
-          ))}
+          <AnimatePresence initial={false}>
+            {filteredJobs.map((job) => (
+              <JobRow
+                key={job.id}
+                job={job}
+                onClick={() => setSelectedJobKey(job.id.toString())}
+              />
+            ))}
+          </AnimatePresence>
         </div>
       )}
 
