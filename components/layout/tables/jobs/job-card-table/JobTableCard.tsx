@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { useFilteredJobs } from '@/lib/hooks/jobs/useFilteredJobs'
 
 import JobCard from './JobCard'
 import JobInfoModal from '@/components/layout/modals/JobInfoModal'
+import { useDisplayJobs } from '@/lib/hooks/jobs/useDisplayJobs'
 
 export default function JobTableCard() {
   /* already filtered by the shared hook */
-  const jobs = useFilteredJobs()
+  const jobs = useDisplayJobs()
 
   const [selectedJobKey, setSelectedJobKey] = useState<string | null>(null)
 

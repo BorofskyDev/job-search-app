@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { useFilteredJobs } from '@/lib/hooks/jobs/useFilteredJobs'
 import JobRow from './JobRow'
 import JobInfoModal from '@/components/layout/modals/JobInfoModal'
+import { useDisplayJobs } from '@/lib/hooks/jobs/useDisplayJobs'
 
 export default function JobTable() {
-  const jobs = useFilteredJobs()
+  const jobs = useDisplayJobs()
 
   const [selectedJobKey, setSelectedJobKey] = useState<string | null>(null)
 
