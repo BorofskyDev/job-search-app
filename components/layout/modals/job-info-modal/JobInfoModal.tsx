@@ -82,10 +82,10 @@ export default function JobInfoModal({ jobKey, isOpen, onClose }: Props) {
           <JobHeader
             companyName={job.companyName}
             status={status}
-            className='col-1 '
+            className='col-span-2 place-self-center gap-8'
           />
-          <DetailsGrid job={job} className='col-1 self-start' />
-          <NotesBlock notes={job.notes ?? ''} className='col-2 row-1 self-end' />
+          <DetailsGrid job={job} className='col-1 row-2 self-start' />
+          <NotesBlock notes={job.notes ?? ''} className='col-2 row-2 self-start' />
           <ContactsList contacts={job.contacts ?? ''} className='col-2' />
           <Actions
             className='col-2'
