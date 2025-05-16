@@ -23,8 +23,8 @@ export type JobForm = {
   location: string
   jobLink: string
   notes: string
-  resumeFile: File | null
-  coverFile: File | null
+  resumesFiles: File | null
+  coverLettersFiles: File | null
   contacts: ContactDraft[]
 }
 
@@ -40,8 +40,8 @@ export function useJobForm() {
     location: '',
     jobLink: '',
     notes: '',
-    resumeFile: null,
-    coverFile: null,
+    resumesFiles: null,
+    coverLettersFiles: null,
     contacts: [],
   })
 
@@ -76,8 +76,8 @@ export function useJobForm() {
       location: '',
       jobLink: '',
       notes: '',
-      resumeFile: null,
-      coverFile: null,
+      resumesFiles: null,
+      coverLetterFiles: null,
       contacts: [],
     }))
 

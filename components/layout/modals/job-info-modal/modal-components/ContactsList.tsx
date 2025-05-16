@@ -20,24 +20,17 @@ export default function ContactsList({
         {contacts.map((c) => (
           <li
             key={c.id}
-            className='flex flex-col gap-4 justify-center items-center border-1 border-slate-950 rounded-2xl py-4 px-8 min-w-fit mx-auto bg-slate-50 shadow-xl'
+            className=' my-6 flex flex-col gap-4 justify-center items-center border-1 border-slate-950 rounded-2xl py-4 px-8 min-w-fit mx-auto bg-slate-50 shadow-xl'
           >
             <BodyText style='lead'>{c.name}</BodyText>
             <BodyText style='body'>{c.position && ` ${c.position}`}</BodyText>
 
             <div className='flex flex-wrap gap-8 justify-center'>
-              <CustomLink
-                external
-               
-                href={`${c.email && ` (${c.email})`}`}
-              >
+              <CustomLink external href={`${c.email && ` (${c.email})`}`}>
                 Email
               </CustomLink>
 
-              <CustomLink
-             
-                href={`${c.phone && `  ${c.phone}`}`}
-              >
+              <CustomLink href={`${c.phone && `  ${c.phone}`}`}>
                 {c.phone}
               </CustomLink>
 

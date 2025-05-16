@@ -16,8 +16,8 @@ interface Props {
     | 'salary'
     | 'location'
     | 'jobLink'
-    | 'resumeFile'
-    | 'coverFile'
+    | 'resumesFiles'
+    | 'coverLettersFiles'
     | 'companyName'
     | 'contacts'
   >
@@ -68,15 +68,15 @@ export default function OptionalFields({ form, update, addContact }: Props) {
           id='resume'
           label='Resume Sent'
           accept='.pdf,.doc,.docx'
-          file={form.resumeFile}
-          onChange={(file) => update('resumeFile', file)}
+          file={form.resumesFiles}
+          onChange={(file) => update('resumesFiles', file)}
         />
         <FileUploadButton
           id='coverLetter'
           label='Cover Letter Sent'
           accept='.pdf,.doc,.docx'
-          file={form.coverFile}
-          onChange={(file) => update('coverFile', file)}
+          file={form.coverLettersFiles}
+          onChange={(file) => update('coverLettersFiles', file)}
         />
       </div>
 

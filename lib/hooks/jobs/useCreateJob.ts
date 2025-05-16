@@ -17,8 +17,8 @@ export interface JobPayload {
   location?: string
   jobLink?: string
   notes?: string
-  resumeFile?: File | null
-  coverFile?: File | null
+  resumesFiles?: File | null
+  coverLettersFiles?: File | null
   contacts: ContactDraft[]
 }
 
@@ -43,8 +43,8 @@ export function useCreateJob() {
         return await getDownloadURL(fileRef)
       }
 
-      const resumeURL = await upload(payload.resumeFile ?? null, 'resumes')
-      const coverURL = await upload(payload.coverFile ?? null, 'covers')
+      const resumeURL = await upload(payload.resumesFiles ?? null, 'resumes')
+      const coverURL = await upload(payload.coverLettersFiles ?? null, 'covers')
 
       // 2. Firestore doc
       await addDoc(collection(db, 'jobs'), {
